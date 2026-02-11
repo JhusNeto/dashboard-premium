@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block title %}Upload — Dashboard Premium{% endblock %}
+{% block content %}
+<div class="upload-section">
+    <div class="card card-premium">
+        <div class="card-body text-center py-5">
+            <h1 class="h3 mb-4">Envie sua planilha Excel</h1>
+            <p class="text-muted mb-4">Formatos aceitos: .xlsx, .xls. Colunas esperadas: data, categoria, valor.</p>
+
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <input type="file" name="file" id="fileInput" class="form-control form-control-lg" accept=".xlsx,.xls">
+                </div>
+                <button type="submit" class="btn btn-premium btn-lg" id="btnSubmit" disabled>
+                    Processar
+                </button>
+            </form>
+
+            <div id="alertBox" class="alert alert-danger mt-3 d-none" role="alert"></div>
+            <div id="spinner" class="spinner-border text-premium mt-3 d-none" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('fileInput').addEventListener('change', function() {
+    document.getElementById('btnSubmit').disabled = !this.files.length;
+});
+
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var fileInput = document.getElementById('fileInput');
+    if (!fileInput.files.length) return;
+
+    var formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+
+    var btn = document.getElementById('btnSubmit');
+    var alertBox = document.getElementById('alertBox');
+    var spinner = document.getElementById('spinner');
+
+    btn.disabled = true;
+    alertBox.classList.add('d-none');
+    spinner.classList.remove('d-none');
+
+    fetch('/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
+    .then(function(result) {
+        if (result.ok) {
+            window.location.href = '/dashboard';
+        } else {
+            alertBox.textContent = result.data.erro || 'Erro ao processar';
+            alertBox.classList.remove('d-none');
+            btn.disabled = false;
+        }
+    })
+    .catch(function(err) {
+        alertBox.textContent = 'Erro de conexão: ' + err.message;
+        alertBox.classList.remove('d-none');
+        btn.disabled = false;
+    })
+    .finally(function() {
+        spinner.classList.add('d-none');
+    });
+});
+</script>
+{% endblock %}

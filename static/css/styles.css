@@ -1,0 +1,114 @@
+/* Dashboard Premium - Paleta: #1e3a5f, #2a6fb0, #e5e7eb, #6b7280, #ffffff */
+
+:root {
+  --premium-dark: #1e3a5f;
+  --premium-medium: #2a6fb0;
+  --gray-light: #e5e7eb;
+  --gray-mid: #6b7280;
+  --white: #ffffff;
+  --shadow: 0 2px 8px rgba(30, 58, 95, 0.08);
+  --shadow-hover: 0 4px 12px rgba(30, 58, 95, 0.12);
+}
+
+body {
+  background: var(--gray-light);
+  color: #374151;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.navbar-premium {
+  background: var(--premium-dark) !important;
+}
+.navbar-premium .navbar-brand,
+.navbar-premium .nav-link {
+  color: var(--white) !important;
+}
+.navbar-premium .nav-link:hover {
+  color: var(--gray-light) !important;
+}
+.navbar-premium .navbar-toggler {
+  border-color: rgba(255,255,255,0.5);
+}
+.navbar-premium .navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+.text-premium { color: var(--premium-medium); }
+.text-premium-dark { color: var(--premium-dark); }
+.bg-premium { background-color: var(--premium-medium); }
+
+.btn-premium {
+  background: var(--premium-medium);
+  color: var(--white);
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+.btn-premium:hover {
+  background: var(--premium-dark);
+  color: var(--white);
+}
+
+.card-premium {
+  border: none;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s;
+}
+.card-premium:hover {
+  box-shadow: var(--shadow-hover);
+}
+.card-premium .card-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-light);
+  font-weight: 600;
+  color: var(--premium-dark);
+  padding: 1rem 1.25rem;
+  border-radius: 10px 10px 0 0;
+}
+.card-premium .card-body {
+  padding: 1.25rem;
+}
+
+.kpi-card {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--premium-medium);
+}
+.kpi-card .kpi-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--premium-dark);
+}
+.kpi-card .kpi-label {
+  font-size: 0.85rem;
+  color: var(--gray-mid);
+}
+
+.table-premium thead th {
+  background: var(--premium-dark);
+  color: var(--white);
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border: none;
+}
+.table-premium tbody td {
+  padding: 0.65rem 1rem;
+}
+.table-premium tbody tr:nth-child(even) {
+  background: rgba(229, 231, 235, 0.5);
+}
+
+.upload-section .card-premium {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .kpi-card .kpi-value {
+    font-size: 1.4rem;
+  }
+}

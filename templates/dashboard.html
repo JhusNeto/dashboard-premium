@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard — Dashboard Premium{% endblock %}
+{% block content %}
+<div class="dashboard-section">
+    <h1 class="h4 mb-4 text-premium-dark">Resultados</h1>
+
+    <!-- KPIs -->
+    <div class="row g-3 mb-4" id="kpiCards"></div>
+
+    <!-- Gráficos -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card card-premium">
+                <div class="card-header">Total por Categoria</div>
+                <div class="card-body">
+                    <canvas id="chartBar" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card card-premium">
+                <div class="card-header">Distribuição Percentual</div>
+                <div class="card-body">
+                    <canvas id="chartPie" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card card-premium">
+                <div class="card-header">Evolução Mensal</div>
+                <div class="card-body">
+                    <canvas id="chartLine" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabela -->
+    <div class="card card-premium">
+        <div class="card-header">Tabela Detalhada</div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-premium mb-0">
+                    <thead id="tableHead"></thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script>
+(function() {
+    var data = {{ data | safe }};
+    DashboardCharts.init(data);
+})();
+</script>
+{% endblock %}
